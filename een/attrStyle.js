@@ -116,7 +116,7 @@ app = angular.module("attrStyle",[])
     link:function(scope,ele,attr){
       if(!attr.eDatalist) return false;
       let tpl = `
-      <ul ng-mouseenter="mouseOver()" ng-show="disShow" style="max-height:20rem;overflow:auto;position:absolute;background-color:#fff;border:solid 1px #eee;z-index:9898;padding:0 1rem;">
+      <ul ng-mouseenter="mouseOver()" ng-show="disShow && data.length>0" style="max-height:20rem;overflow:auto;position:absolute;background-color:#fff;border:solid 1px #eee;z-index:9898;padding:0 1rem;">
         <li style="padding:.35rem 0;max-width:16rem;" ng-click='setVal(v)' ng-repeat="v in data track by $index" ng-bind="v"></li>
       <ul>
       `
