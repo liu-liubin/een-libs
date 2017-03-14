@@ -26,15 +26,16 @@ let Controller = ["$scope","$element","$attrs", function(scope, element, attrs){
 
             element.css({display:"block"});
 
-            // 因为显示了加载盒子，所以文档会因此会被撑高
-            // 以此需要重新判断文档最终高度即scope.lastHeight的结果为最终文档高度
-            scope.lastHeight = htmlHeight+element[0].clientHeight;
-
             // 判断是否存在加载函数并执行之
             if(attrs.onLoad){
               scope.onLoad();
               scope.$apply();
             }
+
+            // 因为显示了加载盒子，所以文档会因此会被撑高
+            // 以此需要重新判断文档最终高度即scope.lastHeight的结果为最终文档高度
+            // 由于受盒子内容可能受外部onLoad函数影响计算高度，加些需放在onLoad执行之后
+            scope.lastHeight = htmlHeight+element[0].clientHeight;
         }
     },false)
 
