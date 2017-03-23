@@ -9,7 +9,7 @@ var sanJiao = `
     border-width:.5rem;
     border-color:#999 transparent transparent;
 `;
-// 文本所选值的样式，主要作用溢出隐藏~~~
+// 文本所选值的样式，主要处理文本溢出隐藏~~~
 var textStyle = `
     position:absolute;
     top:50%;
@@ -23,7 +23,7 @@ var textStyle = `
     font-size:inherit;
     overflow:hidden;
 `;
-// 指令控制器
+
 var _controller = ["$element","$scope","$attrs","$window","$compile",function($element,$scope,$attrs,$window,$compile){
     // 附着指令的样式（默认）,如果指令上有style样式则会覆盖默认样式
     let eleStyle = 'position:relative;display:block;';
@@ -35,12 +35,15 @@ var _controller = ["$element","$scope","$attrs","$window","$compile",function($e
       $element[0].setAttribute("style",eleStyle);
     }
 
-    //如果没有传入options指令属性或者指令ngModel则中止执行代码
+    // 如果指令属性不存在 options、ngModel 则指令无效
     // $scope.text显示给用户看到的值不代表实际意义上ngModel的值
-    if(!$attrs.options || !$attrs.ngModel || typeof($scope.options)!='object'){
+    if(!$attrs.options || !$attrs.ngModel){
       $scope.text = "参数错误";
       return false;
     }
+
+    // 处理如果 scope.options的值不是一个数组对象
+    if( typeof($scope.options)!='object' ) $scope.options=[];
 
     // 通过ng-show指令来控制弹出、隐藏列表选项
     $scope.showList = false;
@@ -157,7 +160,7 @@ var _controller = ["$element","$scope","$attrs","$window","$compile",function($e
         e.preventDefault();
       })
       let items = $scope.elebox.querySelectorAll("ul > li");
-      
+
       // 循环列表
       for(let dom of items){
         // 获取每个列表选择子dom并添加监听事件
