@@ -8,10 +8,10 @@
  * 示例2----------按钮层
  * uri.confirm({
      content:"提示信息",
-     yes:(scope)=>{
+     yes:(scope)=>{   //确定按钮事件 scope 层作用域
        scope.close();
      },
-     no:(scope)=>{
+     no:(scope)=>{    //取消按钮事件   scope 层作用哉
        scope.close();
      },
      shadow,           //是否允许点击遮罩层关闭
@@ -19,6 +19,13 @@
    -scope 回调参数，当前作用域
    -yes *回调* 点击确认按钮
    -no  *回调* 点击取消按钮
+ * 示例3-------自定义弹出层
+ * uri.popup({
+ *   style:"",  //定义弹出层样式，默认居中样式失效
+ *   content:'string',   //自定义内容，支持Html
+ *   ctrl:function(scope){},     //控制器，传入scope作用域 。
+ *   shadow:true,  //默认允许点击遮罩关闭弹层
+ * })
  */
 
 let _service =["$rootScope","$compile","$timeout", function($rootScope,$compile,$timeout){
@@ -68,6 +75,9 @@ let _service =["$rootScope","$compile","$timeout", function($rootScope,$compile,
       scope.opts.shadow = true;
       if(scope.opts.yes && x=="yes") scope.opts.yes(scope);
       if(scope.opts.no && x=="no") scope.opts.no(scope);
+      if( (!scope.opts.yes && x=="yes") || (!scope.opts.no&&x=="no") ){
+        scope.close();
+      }
     }
 
     //是否禁用滑动事件函数
@@ -104,7 +114,7 @@ let _service =["$rootScope","$compile","$timeout", function($rootScope,$compile,
                 tpl = `
                   <div style="width:60%;margin:0 auto;color:#333;position:relative;
                             background:#fff;-webkit-border-radius:.65rem;border-radius:.65rem;
-                            padding:2.6rem 1rem;font-size:1.5rem;text-align:center;">
+                            padding:2.6rem 1rem;font-size:1.5rem;text-align:center;-webkit-transform: translateY(-80%);transform: translateY(-80%);">
                             ${opt.content||"确认或取消？"}
                     <div style="height:3rem;"></div>
                     <div ng-click="confirm('no',$event)" style="${btnS};left:0;-webkit-border-radius:0 0 0 .65rem;border-radius:0 0 0 .65rem">取消</div>

@@ -210,6 +210,41 @@ app = angular.module("attrStyle",[])
     }
   }
 }])
+// 设置flex布局下，flex-grow的占值
+.directive("flexGrow",[function(){
+  return {
+    restrict:'A',
+    link: function(scope, element, attr){
+      if(!attr.flexGrow) return false;
+      element.css({
+        flexGrow:parseInt(attr.flexGrow)
+      })
+    }
+  }
+}])
+// 处理文本溢出出现省略号，
+// 属性值必须为整数：表示处理多少行的文本溢出，默认为1
+// 以 , 符号间隔 第二个参数为高度
+// 示例：
+//  <div ellipsis="3,30px"></div>
+.directive("ellipsis",[function(){
+  return {
+    restrict:"A",
+    link: function(scope, ele, attr){
+      let str = attr.ellipsis || "1";
+      let arr = str.split(",");
+      ele.css({
+        "overflow":"hidden",
+        "word-break": "break-all",
+        "text-overflow": "ellipsis",
+        "display": "-webkit-box",
+        WebkitLineClamp: (arr[0]||1),
+        height:arr[1]||"auto",
+        WebkitBoxOrient: "vertical",
+      })
+    }
+  }
+}])
 
 }
 

@@ -16,10 +16,18 @@ let Controller = ["$scope","$element","$attrs", function(scope, element, attrs){
         // 获取滚动条已滚动的高度
         let scrollTop = Math.max(document.documentElement.scrollTop ,window.pageYOffset ,document.body.scrollTop);
 
+        // 是否强制重新加载
+        if(attrs.onReload && scope.onReload===true){
+          scope.lastHeight = 0;
+          scope.onReload = false;
+          console.log(0);
+        }
+
         // 计算因显示加载文字产生的文档最终高度，防止重复执行到达底部操作
         if(scope.lastHeight >= htmlHeight-(element[0].clientHeight/2)){
             return false;
         }
+
 
         // 计算文档是否到底部
         if(scrollTop + viewHeight == htmlHeight && scrollTop>0){
@@ -57,7 +65,8 @@ if(window.angular){
         return {
             restrict:"EA",
             scope:{
-              onLoad:"&",
+              onLoad:"&",          //加载的回调函数
+              onReload:"=",        //如果onReload===true，则强制重新加载
             },
             replace:true,
             template:"<div ele-eenLoadness></div>",

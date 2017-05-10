@@ -1,6 +1,3 @@
-;(function(window,angular){
-if(!angular) return false;
-
 function _link(scope,e,a,m){
     if(scope.disabled) return false;
     (scope.nums = parseInt(scope.ngModel) || parseInt(scope.def) || parseInt(scope.min) || 0);
@@ -19,7 +16,6 @@ function _link(scope,e,a,m){
     if( !/^\-?[0-9]+$/.test(scope.min) ){
         scope.min = false;
     }
-    console.log(scope.min,scope.max);
     //在输入框输入值并失去焦点时触发
     scope.changeNum = ()=>{
         //匹配输入的是否为数字
@@ -39,6 +35,7 @@ function _link(scope,e,a,m){
         }
         if(a.ngModel){
             scope.ngModel = parseInt(scope.nums);
+            setTimeout(function(){scope.onChange();scope.$apply()},200)
         }
     }
     //往上加 1
@@ -47,6 +44,7 @@ function _link(scope,e,a,m){
         scope.nums += 1
         if(a.ngModel){
             scope.ngModel = scope.nums;
+            setTimeout(function(){scope.onChange();scope.$apply()},200)
         }
     }
     //住下减 1
@@ -55,43 +53,50 @@ function _link(scope,e,a,m){
         scope.nums -= 1
         if(a.ngModel){
             scope.ngModel = scope.nums;
+            setTimeout(function(){scope.onChange();scope.$apply()},200)
         }
     }
 }
 
-// var $injector = angular.injector();
-angular.module("eenNumctrl",[]).directive("eenNumctrl",function(){
+
+var app = {};
+
+if(window.angular){
+
+app = angular.module("eenNumctrl",[]).directive("eenNumctrl",function(){
     return {
         restrict:"EA",
-		replace:false,
-		scope:{
-			height:"@",  //高度，长度
-			width:"@",  //高度，长度
-			max:"@" ,  //最大值
-			min:"@",    //最小值,
-			def:"@",     //  默认值
-			ngModel:"=",
-            disabled:"@",
-		},
-		//require:"^ngModel",
-		template:`
-		<div style="position:relative; display:inline-block;text-align:center;">
-			<div ng-click="addNum()" style="border-left:solid 1px #AAA;
-				width:{{height}};height:{{height}};
-				line-height:{{height}};
-				position:absolute;right:0;top:0;">+</div>
-			<div ng-click="reduceNum()" style="border-right:solid 1px #AAA;
-						width:{{height}};height:{{height}};
-						line-height:{{height}};
-						position:absolute;left:0;top:0;" >-</div>
-			<input type="text" ng-blur="changeNum()" ng-model="nums" style="border:solid 1px #AAA;
-				padding:0 {{height}};color:#888;
-				text-align:center;width:{{width}};
-				height:{{height}};box-sizing:border-box;" />
-		</div>
-		`,
+    		replace:false,
+    		scope:{
+    			height:"@",  //高度，长度
+    			width:"@",  //高度，长度
+    			max:"@" ,  //最大值
+    			min:"@",    //最小值,
+    			def:"@",     //  默认值
+    			ngModel:"=",
+          disabled:"@",  //是否可用
+          onChange:"&",  //ngModel值发生改变时执行回调函数
+    		},
+    		//require:"^ngModel",
+    		template:`
+    		<div style="position:relative; display:inline-block;text-align:center;">
+    			<div ng-click="addNum()" style="border-left:solid 1px #AAA;
+    				width:{{height}};height:{{height}};
+    				line-height:{{height}};
+    				position:absolute;right:0;top:0;">+</div>
+    			<div ng-click="reduceNum()" style="border-right:solid 1px #AAA;
+    						width:{{height}};height:{{height}};
+    						line-height:{{height}};
+    						position:absolute;left:0;top:0;" >-</div>
+    			<input type="text" ng-blur="changeNum()" ng-model="nums" style="border:solid 1px #AAA;
+    				padding:0 {{height}};color:#888;
+    				text-align:center;width:{{width}};
+    				height:{{height}};box-sizing:border-box;" />
+    		</div>
+    		`,
         link:_link,
     }
 })
 
-})(window,window.angular)
+}
+export default app;
