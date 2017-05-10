@@ -5,16 +5,16 @@
 een/eenNumctrl.js
 > 新增onChange属性方法，监听ng-model值发生改变执行该方法
 
-  
+<br/>  
 
 ### 更新日志  2017-5-3
 
 een/eenRadio.js
 > 优化、修复复选BUG, 新增指令属性checkbox必须设置数字索引值，作用数组下标
 > 删除ng-value设置取值
-> 修复单次选择并改变全选按钮的状态
+> 修复单次选择并改变全选按钮的状态  
 
-  
+<br/>
 
 ### 更新日志  2017-4-27
 
@@ -26,7 +26,7 @@ een/eenRadio.js
 > 修复bug，checkbox、radio选中未选中取值问题
 > 新增value变值监听，使用 $observe
 
---------
+<br/>
 
 ### 更新日志  2017-4-24
 
@@ -39,14 +39,14 @@ een/eenRadio.js
 een/eenher.js
 > 优化confirm弹层效果
 
---------
+<br/>
 
 ### 更新日志  2017-4-20
 een/eenRadio.js
 > 改进优化，并新增复选功能
-
---------
-
+ 
+<br/>
+ 
 ### 更新日志  2017-4-12
 een/eenDropdown.js
 > 修复，在同一页面切换tab需要重新下拉刷新时加载无效。
