@@ -1,10 +1,12 @@
 # een-libs
 
-####更新日志  2017-5-3
-1. een/eenNumctrl.js
-    新增onChange属性方法，监听ng-model值发生改变执行该方法
+#### 更新日志  2017-5-7
 
-####更新日志  2017-5-3
+1. een/eenNumctrl.js
+
+   新增onChange属性方法，监听ng-model值发生改变执行该方法
+
+#### 更新日志  2017-5-3
 1. een/eenRadio.js
     优化、修复复选BUG, 新增指令属性checkbox必须设置数字索引值，作用数组下标
     删除ng-value设置取值
