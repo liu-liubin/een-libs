@@ -1,4 +1,11 @@
-# een-libs
+﻿# een-libs
+
+####更新日志  2017-6-2
+
+class/upload.js
+> POST x-www-form-urlencoded传输方式键值对添加 encodeURIComponent 方法，防止传输解析出错
+
+<br/>  
 
 ### 更新日志  2017-5-7
 

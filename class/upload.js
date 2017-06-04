@@ -172,7 +172,7 @@ export default class extends throw_handle{
               // 整理归并参数
               let items = [];
               for(let k in newform){
-                items.push(k+"="+newform[k]);
+                items.push(k+"="+ encodeURIComponent(newform[k]));
               }
               let queue = {
                 xhr:new XMLHttpRequest(),
